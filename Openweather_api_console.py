@@ -17,6 +17,26 @@ def fetch_open_weather(city):
     else:
         print(f"Could not fetch url: {url}")
 
+def match_case_selector():
+    print("Please provide the number for type of weather data you need:"
+          "\n1. Current temperature\n"
+          "2. How it feels like\n"
+          "3. Minimum temperature\n"
+          "4. Maximum temperature\n")
+
+    data = input()
+
+    match data:
+        case "1":
+            return 'temp'
+        case "2":
+            return 'feels_like'
+        case "3":
+            return 'temp_min'
+        case "4":
+            return 'temp_max'
+
+
 def main():
 
     is_running = True
@@ -31,9 +51,10 @@ def main():
 
         if user_input == "1":
            city =  input_selector()
+           data = match_case_selector()
            weather_data = fetch_open_weather(city)
            if weather_data:
-                print(f"The temperature of {city} is {weather_data['main']['temp']} Celsius currently")
+                print(f"{city}: {weather_data['main'][data]} Celsius")
            else:
                 print("Could not fetch weather data. Please check city name")
         elif user_input == "2":
