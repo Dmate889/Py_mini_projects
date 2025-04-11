@@ -32,7 +32,10 @@ def main():
         if user_input == "1":
            city =  input_selector()
            weather_data = fetch_open_weather(city)
-           print(f"The temperature of {city} is {weather_data["main"]["temp"]} Celsius currently")
+           if weather_data:
+                print(f"The temperature of {city} is {weather_data['main']['temp']} Celsius currently")
+           else:
+                print("Could not fetch weather data. Please check city name")
         elif user_input == "2":
             is_running = False
             print("Have a nice day!")
