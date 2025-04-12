@@ -13,11 +13,7 @@ def main():
         if user_input == "1":
             hero = Rpg.hero_selection()
             print(f"You have selected {hero.name}, class: {hero.classtype}")
-            activity = input("What you would like to do now? "
-                  "\n1. Fight in the Arena"
-                  "\n2. Traveling"
-                  "\n3. Get existing hero data\n")
-            Rpg.hero_activity(activity,hero)
+            Rpg.hero_menu(hero)
         elif user_input == "2":
             print("Have a nice day and don't forget to come back!")
             is_running = False

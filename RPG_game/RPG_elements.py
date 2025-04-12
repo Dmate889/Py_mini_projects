@@ -3,25 +3,25 @@ import classes
 import time
 
 
-death_knight = classes.DeathKnight("Arthas",100,50,"Death Coil")
-warrior = classes.Warrior("Garrosh",100,50,"Bladestorm")
-mage = classes.Mage("Jaina",50,100,"Fireball")
+death_knight = classes.DeathKnight("Inquisitor",100,50,"Death Blade")
+warrior = classes.Warrior("Ashtronor",100,50,"Brutal Cut")
+mage = classes.Mage("Phoenix",50,100,"Fireball")
 
 hero_list = [death_knight,warrior,mage]
 
 def hero_selection():
     selection = input("Choose your Hero: "
-          "\n1. Garrosh"
-          "\n2. Jaina"
-          "\n3. Arthas\n")
+          "\n1. Warrior"
+          "\n2. Mage"
+          "\n3. Death Knight\n")
 
     match selection:
         case "1":
-            return classes.Warrior("Garrosh",100,50,"Bladestorm")
+            return classes.Warrior("Ashtronor",100,50,"Brutal Cut")
         case "2":
-            return classes.Mage("Jaina",50,100,"Fireball")
+            return classes.Mage("Phoenix",50,100,"Fireball")
         case "3":
-            return classes.DeathKnight("Arthas",100,50,"Death Coil")
+            return classes.DeathKnight("Inquisitor",100,50,"Death Blade")
 
 
 def fight(first_fighter,second_fighter):
@@ -77,3 +77,17 @@ def get_hero_data(hero):
         print("Your hero died in the last fight, please select another hero")
     else:
         print("You don't have a hero selected yet.")
+
+def hero_menu(hero):
+    print("=================")
+    print("Welcome to the Hero Menu!")
+    print("=================")
+    print("1. Get hero data"
+          "\n2. Fight in the Arena\n")
+    user_input = input()
+
+    if user_input == "1":
+        get_hero_data(hero)
+    elif user_input == "2":
+        hero_activity("1",hero)
+
