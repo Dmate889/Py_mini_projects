@@ -15,15 +15,12 @@ def main():
             print(f"You have selected {hero.name}, class: {hero.classtype}")
             activity = input("What you would like to do now? "
                   "\n1. Fight in the Arena"
-                  "\n2. Traveling\n")
+                  "\n2. Traveling"
+                  "\n3. Get existing hero data\n")
             Rpg.hero_activity(activity,hero)
         elif user_input == "2":
             print("Have a nice day and don't forget to come back!")
             is_running = False
-
-
-
-
 
 
 if __name__ == "__main__":

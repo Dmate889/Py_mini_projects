@@ -19,10 +19,9 @@ def hero_selection():
         case "1":
             return classes.Warrior("Garrosh",100,50,"Bladestorm")
         case "2":
-            return classes.Mage("Jaina",50,100,"Blizzard")
+            return classes.Mage("Jaina",50,100,"Fireball")
         case "3":
             return classes.DeathKnight("Arthas",100,50,"Death Coil")
-
 
 
 def fight(first_fighter,second_fighter):
@@ -42,7 +41,7 @@ def fight(first_fighter,second_fighter):
             time.sleep(3)
             break
 
-        print(f"{second_fighter.name} composes themselves and attacks back with {second_fighter.special}")
+        print(f"{second_fighter.name} composes themselves and strikes back with {second_fighter.special}")
         time.sleep(3)
         damage = random.randint(0, second_fighter.dmg)
         print(f"CRITICAL DAMAGE: {damage}" if damage == second_fighter.dmg else f"The damage was {damage}")
@@ -58,12 +57,23 @@ def fight(first_fighter,second_fighter):
 
 def hero_activity(command,hero):
     if command == "1":
-        print("Your hero will face other heroes in the Arena")
         enemy_hero = random.choice(hero_list)
+        print(f"Your hero will face {enemy_hero.name} in the Arena")
         while enemy_hero.name == hero.name:
             enemy_hero = random.choice(hero_list)
         fight(hero,enemy_hero)
     elif command == "2":
         print("Your hero goes on a journey..")
+    elif command == "3":
+        get_hero_data(hero)
 
-
+def get_hero_data(hero):
+    if hero.health > 0:
+        print(f"Hero: {hero.name}\n"
+              f"Class: {hero.classtype}\n"
+              f"Health: {hero.health}\n"
+              f"Special ability: {hero.special}\n")
+    elif hero.health <= 0:
+        print("Your hero died in the last fight, please select another hero")
+    else:
+        print("You don't have a hero selected yet.")
