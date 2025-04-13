@@ -1,5 +1,6 @@
 import random
 import time
+import RPG_elements as Rpg
 
 class Character:
     def __init__(self, name, health, dmg, special, special2, potions):
@@ -14,7 +15,7 @@ class Character:
     def health_potion(self):
         if self.potions > 0:
             hp_amount = random.randint(0,50)
-            time.sleep(2)
+            time.sleep(1)
             print(f"{self.name} uncorks a healing potion and drinks it in one swift motion.")
             self.health += hp_amount
             time.sleep(3)
@@ -28,20 +29,24 @@ class Character:
 
         for turn in range(turns):
             print(f"\n--- Round {turn + 1} ---")
+            time.sleep(3)
             self.attack_phase(enemy_hero)
             if enemy_hero.health <= 0:
-                print(f"{enemy_hero.name} has fallen!")
-                enemy_hero.health = enemy_hero.health
+                time.sleep(2)
+                print(f"{enemy_hero.name}'s journey ends here. Their name fades from the Arena.")
+                Rpg.fallen_hero(enemy_hero)
                 return
 
 
             enemy_hero.attack_phase(self)
             if self.health <= 0:
-                print(f"{self.name} has fallen!")
+                time.sleep(2)
+                print(f"{self.name}'s journey ends here. Their name fades from the Arena.")
                 return
 
         while self.health > 0 and enemy_hero.health > 0:
             print("\n--- Action Phase ---")
+            time.sleep(2)
             print("Choose your action:")
             print("1. Regular attack")
             print(f"2. Use special ability ({self.special2}) --USED" if self.special_used == True else f"2. Use special ability ({self.special2})")
@@ -59,8 +64,8 @@ class Character:
                 print("Invalid input, you lose your turn!")
 
             if enemy_hero.health <= 0:
-                print(f"{enemy_hero.name} has fallen!")
-                enemy_hero.health = enemy_hero.health
+                print(f"{enemy_hero.name}'s journey ends here. Their name fades from the Arena.")
+                Rpg.fallen_hero(enemy_hero)
                 break
 
             print(f"\n{enemy_hero.name} strikes back!")
@@ -76,14 +81,14 @@ class Character:
             if enemy_ai == 1:
                 enemy_hero.attack_phase(self)
                 if self.health <= 0:
-                    print(f"{self.name} has fallen!")
+                    print(f"{self.name}'s journey ends here. Their name fades from the Arena.")
                     break
             elif enemy_ai == 2:
                 enemy_hero.health_potion()
             elif enemy_ai == 3:
                 enemy_hero.special_attack(self)
                 if self.health <= 0:
-                    print(f"{self.name} has fallen!")
+                    print(f"{self.name}'s journey ends here. Their name fades from the Arena.")
                     break
 
     def attack_phase(self, enemy_hero):

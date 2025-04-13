@@ -1,13 +1,10 @@
 import random
 import classes
 import time
-import fantasy_names
+import hero_factory as hf
 
-death_knight = classes.DeathKnight(fantasy_names.randomize(),150,50,"Death Blade")
-warrior = classes.Warrior(fantasy_names.randomize(),150,50,"Brutal Cut")
-mage = classes.Mage(fantasy_names.randomize(),100,100,"Fireball")
-
-hero_list = [death_knight,warrior,mage]
+hero_list = []
+hf.hero_creation(hero_list)
 
 def hero_selection():
     selection = input("Choose your Hero: "
@@ -73,7 +70,7 @@ def main_menu():
     is_running = True
     while is_running:
         print("=======================================")
-        print("Welcome to Python console RPG mini game")
+        print("Welcome to the Arena of Endless Carnage")
         print("=======================================")
         user_input = input("Press: "
                            "\n1 Character Selection"
@@ -84,6 +81,7 @@ def main_menu():
             hero_menu(hero)
         elif user_input == "2":
             print("Farewell traveller!")
+            time.sleep(2)
             break
 
 def hero_menu(hero):
@@ -102,6 +100,7 @@ def hero_menu(hero):
             get_hero_data(hero)
         elif user_input == "2":
             hero_activity("1",hero)
+            new_heroes(hero_list)
         elif user_input == "3":
             hero_activity("2",hero)
         elif user_input == "4":
@@ -115,3 +114,13 @@ def hero_rest(hero):
     hero.potions = 2
     hero.special_used = False
     print(f"Your hero took some rest.. Health: {hero.health}, Health Potions: {hero.potions} and special ability no longer on cooldown")
+
+def fallen_hero(hero):
+    hero_list.remove(hero)
+
+def new_heroes(hero_list):
+    if len(hero_list) == 0:
+        print("New champions have entered the Arena, seeking glory.")
+        hf.hero_creation(hero_list)
+    else:
+        print(f"{len(hero_list)} champions remain to fight another day in the Arena.")
