@@ -1,4 +1,4 @@
-# 🐍 Py_mini_projects
+# Py_mini_projects
 
 This repository contains a collection of Python mini-projects created for learning and fun.
 
