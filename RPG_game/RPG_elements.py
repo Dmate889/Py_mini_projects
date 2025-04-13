@@ -45,24 +45,28 @@ def get_hero_data(hero):
     user_input = input("\n1. Your hero"
                       "\n2. Enemy heroes\n")
     if user_input == "1":
-        if hero.health > 0:
-            print(f"Hero: {hero.name}\n"
-                  f"Class: {hero.classtype}\n"
-                  f"Health: {hero.health}\n"
-                  f"Basic attack: {hero.special}\n"
-                  f"Special ability: {hero.special2}\n" if hero.special_used == False else f"Special ability: {hero.special2} --- USED\n"
-                  f"Health Potions: {hero.potions}")
+        if user_input == "1":
+            if hero.health > 0:
+                special_line = f"Special ability: {hero.special2}\n" if not hero.special_used else f"Special ability: {hero.special2} --- USED\n"
+
+                print(f"Hero: {hero.name}\n"
+                      f"Class: {hero.classtype}\n"
+                      f"Health: {hero.health}\n"
+                      f"Basic attack: {hero.special}\n"
+                      f"{special_line}"
+                      f"Health Potions: {hero.potions}")
         elif hero.health <= 0:
             print("Your hero died in the last fight, please select another hero")
         else:
             print("You don't have a hero selected yet.")
     else:
         for hero in hero_list:
+            special_line = f"Special ability: {hero.special2}\n" if hero.special_used == False else f"Special ability: {hero.special2} --- USED\n"
             print(f"\nHero: {hero.name}\n"
                   f"Class: {hero.classtype}\n"
                   f"Health: {hero.health}\n"
                   f"Basic attack: {hero.special}\n"
-                  f"Special ability: {hero.special2} (Not used)\n" if hero.special_used == False else "(Used)\n"
+                  f"{special_line}"
                   f"Health Potions: {hero.potions}")
 
 def main_menu():
