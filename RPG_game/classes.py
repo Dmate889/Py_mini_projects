@@ -14,7 +14,7 @@ class Character:
     def health_potion(self):
         if self.potions > 0:
             hp_amount = random.randint(0,50)
-            time.sleep(3)
+            time.sleep(2)
             print(f"{self.name} uncorks a healing potion and drinks it in one swift motion.")
             self.health += hp_amount
             time.sleep(3)
