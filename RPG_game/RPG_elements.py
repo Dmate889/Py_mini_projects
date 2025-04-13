@@ -3,9 +3,9 @@ import classes
 import time
 
 
-death_knight = classes.DeathKnight("Inquisitor",100,50,"Death Blade")
-warrior = classes.Warrior("Ashtronor",100,50,"Brutal Cut")
-mage = classes.Mage("Phoenix",50,100,"Fireball")
+death_knight = classes.DeathKnight("Inquisitor",150,50,"Death Blade")
+warrior = classes.Warrior("Ashtronor",150,50,"Brutal Cut")
+mage = classes.Mage("Phoenix",100,100,"Fireball")
 
 hero_list = [death_knight,warrior,mage]
 
@@ -17,11 +17,13 @@ def hero_selection():
     hero_name = input("Hero name: ")
     match selection:
         case "1":
-            return classes.Warrior(hero_name,100,50,"Brutal Cut")
+            return classes.Warrior(hero_name,150,50,"Brutal Cut")
         case "2":
-            return classes.Mage(hero_name,50,100,"Fireball")
+            return classes.Mage(hero_name,100,100,"Fireball")
         case "3":
-            return classes.DeathKnight(hero_name,100,50,"Death Blade")
+            return classes.DeathKnight(hero_name,150,50,"Death Blade")
+        case _:
+            return print("Invalid input!")
 
 
 def hero_activity(command,hero):
@@ -33,9 +35,11 @@ def hero_activity(command,hero):
             print(f"Your hero will face {enemy_hero.name} ({enemy_hero.classtype}) in the Arena")
             hero.fight(enemy_hero)
     elif command == "2":
-        print("Your hero goes on a journey..")
+        hero_rest(hero)
     elif command == "3":
         get_hero_data(hero)
+    else:
+        print("Invalid input!")
 
 def get_hero_data(hero):
     user_input = input("\n1. Your hero"
@@ -46,7 +50,8 @@ def get_hero_data(hero):
                   f"Class: {hero.classtype}\n"
                   f"Health: {hero.health}\n"
                   f"Basic attack: {hero.special}\n"
-                  f"Special attack: {hero.special2}\n")
+                  f"Special ability: {hero.special2}\n" if hero.special_used == False else f"Special ability: {hero.special2} --- USED\n"
+                  f"Health Potions: {hero.potions}")
         elif hero.health <= 0:
             print("Your hero died in the last fight, please select another hero")
         else:
@@ -57,7 +62,8 @@ def get_hero_data(hero):
                   f"Class: {hero.classtype}\n"
                   f"Health: {hero.health}\n"
                   f"Basic attack: {hero.special}\n"
-                  f"Special attack: {hero.special2}\n")
+                  f"Special ability: {hero.special2} (Not used)\n" if hero.special_used == False else "(Used)\n"
+                  f"Health Potions: {hero.potions}")
 
 def main_menu():
     is_running = True
@@ -93,3 +99,10 @@ def hero_menu(hero):
             hero_activity("1",hero)
         elif user_input == "3":
             is_running = False
+
+
+def hero_rest(hero):
+    hero.health = hero.health
+    hero.potions = hero.potions
+    hero.special_used = False
+    print(f"Your hero will take some rest.. Health: {hero.health}, Health Potions: {hero.potions} and special ability no longer on cooldown")
