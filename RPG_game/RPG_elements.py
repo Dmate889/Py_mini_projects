@@ -1,11 +1,11 @@
 import random
 import classes
 import time
+import fantasy_names
 
-
-death_knight = classes.DeathKnight("Inquisitor",150,50,"Death Blade")
-warrior = classes.Warrior("Ashtronor",150,50,"Brutal Cut")
-mage = classes.Mage("Phoenix",100,100,"Fireball")
+death_knight = classes.DeathKnight(fantasy_names.randomize(),150,50,"Death Blade")
+warrior = classes.Warrior(fantasy_names.randomize(),150,50,"Brutal Cut")
+mage = classes.Mage(fantasy_names.randomize(),100,100,"Fireball")
 
 hero_list = [death_knight,warrior,mage]
 

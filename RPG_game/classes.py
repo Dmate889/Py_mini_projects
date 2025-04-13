@@ -56,6 +56,7 @@ class Character:
 
             if enemy_hero.health <= 0:
                 print(f"{enemy_hero.name} has fallen!")
+                enemy_hero.health = enemy_hero.health
                 break
 
             print(f"\n{enemy_hero.name} strikes back!")
