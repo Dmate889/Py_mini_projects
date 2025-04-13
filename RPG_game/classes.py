@@ -14,9 +14,11 @@ class Character:
     def health_potion(self):
         if self.potions > 0:
             hp_amount = random.randint(0,50)
+            time.sleep(3)
             print(f"{self.name} uncorks a healing potion and drinks it in one swift motion.")
             self.health += hp_amount
-            print(f"{self.name} healed for {hp_amount}")
+            time.sleep(3)
+            print(f"{self.name} healed for {hp_amount}. {self.name} HP: {self.health}")
             self.potions -= 1
         else:
             print("You don't have more potions left - You lost your round!")
@@ -112,6 +114,8 @@ class Warrior(Character):
             time.sleep(3)
             print(f"CRITICAL EXECUTION: {execution_damage}" if execution_damage == 50 else f"The damage was: {execution_damage}")
             time.sleep(3)
+            print(f"{enemy_hero.name} HP: {enemy_hero.health}")
+            time.sleep(3)
             enemy_hero.health -= execution_damage
             self.special_used = True
         else:
@@ -130,6 +134,8 @@ class Mage(Character):
             print(f"Molten fire swirls around {self.name}, forming a blazing shield of lava!")
             time.sleep(3)
             print(f"SUPER SHIELD! {shield_protection}" if shield_protection == 100 else f"{self.name} is empowered by the elemental force and gains {shield_protection} health!")
+            time.sleep(3)
+            print(f"{self.name} HP: {self.health}")
             time.sleep(3)
             self.special_used = True
         else:
@@ -150,9 +156,12 @@ class DeathKnight(Character):
             time.sleep(3)
             print(f"{self.name} siphons strength from the explosion and heals for {int(execution_damage * 0.5)}.")
             time.sleep(3)
+            print(f"{enemy_hero.name} HP: {enemy_hero.health}")
+            print(f"{self.name} HP: {self.health}")
+            time.sleep(3)
             self.special_used = True
         else:
-            print("Special ability has been already used! Take some rest to use it again!")
+            print("Special ability is on cooldown, take some rest to use it again!")
 
 
 

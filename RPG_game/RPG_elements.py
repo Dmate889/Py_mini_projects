@@ -83,7 +83,7 @@ def main_menu():
             print(f"You have selected {hero.name}, class: {hero.classtype}")
             hero_menu(hero)
         elif user_input == "2":
-            print("Have a nice day and don't forget to come back!")
+            print("Farewell traveller!")
             break
 
 def hero_menu(hero):
@@ -94,7 +94,8 @@ def hero_menu(hero):
         print("=================")
         print("1. Get hero data"
               "\n2. Fight in the Arena"
-              "\n3. Return to main menu (you will lose your hero)\n")
+              "\n3. Get some rest"
+              "\n4. Return to main menu (you will lose your hero)\n")
         user_input = input()
 
         if user_input == "1":
@@ -102,11 +103,15 @@ def hero_menu(hero):
         elif user_input == "2":
             hero_activity("1",hero)
         elif user_input == "3":
+            hero_activity("2",hero)
+        elif user_input == "4":
             is_running = False
+        else:
+            print("Invalid input")
 
 
 def hero_rest(hero):
-    hero.health = hero.health
-    hero.potions = hero.potions
+    hero.health = 100 if hero.classtype == "Mage" else 150
+    hero.potions = 2
     hero.special_used = False
-    print(f"Your hero will take some rest.. Health: {hero.health}, Health Potions: {hero.potions} and special ability no longer on cooldown")
+    print(f"Your hero took some rest.. Health: {hero.health}, Health Potions: {hero.potions} and special ability no longer on cooldown")
