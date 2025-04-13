@@ -4,7 +4,8 @@ import time
 import hero_factory as hf
 
 hero_list = []
-hf.hero_creation(hero_list)
+waves = 1
+hf.hero_creation(hero_list, 1,50,150)
 
 def hero_selection():
     while True:
@@ -16,11 +17,11 @@ def hero_selection():
 
         match selection:
             case "1":
-                return classes.Warrior(hero_name, 150, 50, "Brutal Cut")
+                return classes.Warrior(hero_name, 150, 50, "Brutal Cut",1)
             case "2":
-                return classes.Mage(hero_name, 100, 100, "Fireball")
+                return classes.Mage(hero_name, 500, 500, "Fireball",1)
             case "3":
-                return classes.DeathKnight(hero_name, 150, 50, "Death Blade")
+                return classes.DeathKnight(hero_name, 150, 50, "Death Blade",1)
             case _:
                 print("Invalid input! Please try again.\n")
 
@@ -47,22 +48,24 @@ def get_hero_data(hero):
                 special_line = f"Special ability: {hero.special2}\n" if not hero.special_used else f"Special ability: {hero.special2} --- USED\n"
 
                 print(f"Hero: {hero.name}\n"
+                      f"Level: {hero.level}\n"
                       f"Class: {hero.classtype}\n"
                       f"Health: {hero.health}\n"
                       f"Basic attack: {hero.special}\n"
                       f"{special_line}"
-                      f"Health Potions: {hero.potions}")
+                      f"Health Potions: {hero.potions}\n")
             elif hero.health <= 0:
                print("Your hero died in the last fight, please select another hero")
     elif user_input == "2":
         for hero in hero_list:
             special_line = f"Special ability: {hero.special2}\n" if hero.special_used == False else f"Special ability: {hero.special2} --- USED\n"
             print(f"\nHero: {hero.name}\n"
+                  f"Level: {hero.level}\n"
                   f"Class: {hero.classtype}\n"
                   f"Health: {hero.health}\n"
-                  f"Basic attack: {hero.special}\n"
+                  f"Basic attack: {hero.special}"
                   f"{special_line}"
-                  f"Health Potions: {hero.potions}")
+                  f"Health Potions: {hero.potions}\n")
     else:
         print("Invalid input!")
 
@@ -119,8 +122,16 @@ def fallen_hero(hero):
     hero_list.remove(hero)
 
 def new_heroes(hero_list):
+    global waves
+    base_health = 100
+    base_dmg = 50
+
     if len(hero_list) == 0:
-        print("New champions have entered the Arena, seeking glory.")
-        hf.hero_creation(hero_list)
+        waves += 1
+        health = base_health + (waves - 1) * 50
+        dmg = base_dmg + (waves - 1) * 50
+        print(f"\nWave {waves}: New champions have entered the Arena, stronger than ever!")
+        hf.hero_creation(hero_list, waves, health, dmg)
     else:
-        print(f"{len(hero_list)} champions remain to fight another day in the Arena.")
+        print(f"{len(hero_list)} remain to fight another day in the Arena.")
+        time.sleep(2)

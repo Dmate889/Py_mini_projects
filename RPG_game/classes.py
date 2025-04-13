@@ -3,7 +3,7 @@ import time
 import RPG_elements as Rpg
 
 class Character:
-    def __init__(self, name, health, dmg, special, special2, potions):
+    def __init__(self, name, health, dmg, special, special2, potions,level):
         self.name = name
         self.health = health
         self.dmg = dmg
@@ -11,6 +11,8 @@ class Character:
         self.special2 = special2
         self.potions = potions
         self.special_used = False
+        self.xp = 0
+        self.level = level
 
     def health_potion(self):
         if self.potions > 0:
@@ -34,6 +36,11 @@ class Character:
             if enemy_hero.health <= 0:
                 time.sleep(2)
                 print(f"{enemy_hero.name}'s journey ends here. Their name fades from the Arena.")
+                time.sleep(3)
+                print("You gained 30 XP!")
+                self.xp += 30
+                time.sleep(2)
+                self.level_up()
                 Rpg.fallen_hero(enemy_hero)
                 return
 
@@ -64,7 +71,13 @@ class Character:
                 print("Invalid input, you lose your turn!")
 
             if enemy_hero.health <= 0:
+                time.sleep(2)
                 print(f"{enemy_hero.name}'s journey ends here. Their name fades from the Arena.")
+                time.sleep(2)
+                print("You gained 30 XP!")
+                self.xp += 30
+                time.sleep(2)
+                self.level_up()
                 Rpg.fallen_hero(enemy_hero)
                 break
 
@@ -94,7 +107,7 @@ class Character:
     def attack_phase(self, enemy_hero):
         print(f"{self.name} attacks {enemy_hero.name} with {self.special}")
         time.sleep(3)
-        damage = random.randint(0, self.dmg)
+        damage = random.randint(10, self.dmg)
         print(f"CRITICAL DAMAGE: {damage}" if damage == self.dmg else f"The damage was {damage}")
         enemy_hero.health -= damage
         time.sleep(3)
@@ -106,9 +119,24 @@ class Character:
     def special_attack(self, enemy_hero):
         raise NotImplementedError("This class must implement its own special_attack() method.")
 
+    def level_up(self):
+        if self.xp >= 90:
+            self.level += 1
+            print(f"==== LEVEL UP! ====\n"
+                  f"You are level {self.level} now! You gained: "
+                  f"\n + 50 health"
+                  f"\n + 50 damage")
+            self.xp = 0
+            self.dmg += 50
+            self.health += 50
+            time.sleep(3)
+        else:
+            print(f"You need {90 - self.xp} XP to reach the next level")
+            time.sleep(2)
+
 class Warrior(Character):
-    def __init__(self,name,health,dmg,special,special2="Execution", potions= 2, classtype="Warrior"):
-        super().__init__(name,health,dmg,special,special2, potions)
+    def __init__(self,name,health,dmg,special,level,special2="Execution", potions= 2, classtype="Warrior"):
+        super().__init__(name,health,dmg,special,special2, potions,level)
         self.classtype = classtype
 
 
@@ -128,8 +156,8 @@ class Warrior(Character):
 
 
 class Mage(Character):
-    def __init__(self,name,health,dmg,special, special2="Lava Shield", potions= 2, classtype="Mage"):
-        super().__init__(name,health,dmg, special,special2, potions)
+    def __init__(self,name,health,dmg,special,level, special2="Lava Shield", potions= 2, classtype="Mage"):
+        super().__init__(name,health,dmg, special,special2, potions,level)
         self.classtype = classtype
 
     def special_attack(self, enemy_hero):
@@ -147,13 +175,13 @@ class Mage(Character):
             print("Special ability has been already used! Take some rest to use it again!")
 
 class DeathKnight(Character):
-    def __init__(self,name,health,dmg,special, special2="Corpse Explosion", potions= 2, classtype="Death Knight"):
-        super().__init__(name,health,dmg,special,special2, potions)
+    def __init__(self,name,health,dmg,special,level, special2="Corpse Explosion", potions= 2, classtype="Death Knight"):
+        super().__init__(name,health,dmg,special,special2, potions,level)
         self.classtype = classtype
 
     def special_attack(self, enemy_hero):
         if not self.special_used:
-            execution_damage = random.randint(10,30)
+            execution_damage = random.randint(20,40)
             self.health += int(execution_damage * 0.5)
             print(f"Rotten flesh ignites with necrotic energy as {self.name} triggers a Corpse Explosion!")
             time.sleep(3)
