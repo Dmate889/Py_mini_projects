@@ -19,7 +19,7 @@ def hero_selection():
             case "1":
                 return classes.Warrior(hero_name, 150, 50, "Brutal Cut",1)
             case "2":
-                return classes.Mage(hero_name, 500, 500, "Fireball",1)
+                return classes.Mage(hero_name, 100, 50, "Fireball",1)
             case "3":
                 return classes.DeathKnight(hero_name, 150, 50, "Death Blade",1)
             case _:
