@@ -1,6 +1,6 @@
 import requests
 
-# The key is public and free to use for everyone, I don't consider this as security vulnerability
+
 api_key = "2151d7e178017e10631556b4da476ae1"
 
 def input_selector():
